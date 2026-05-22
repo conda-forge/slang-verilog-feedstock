@@ -12,13 +12,13 @@ source:
     - 0001-fix-get-target-property.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - package:
       name: slang-verilog
     build:
-      number: 0
+      number: 1
       script:
         - if: unix
           then: build.sh
@@ -60,7 +60,7 @@ outputs:
   - package:
       name: slang-systemverilog
     build:
-      number: 0
+      number: 1
       noarch: generic
       script: "echo 'alias package'"
     requirements:
@@ -73,7 +73,7 @@ outputs:
   - package:
       name: slang-sv
     build:
-      number: 0
+      number: 1
       noarch: generic
       script: "echo 'alias package'"
     requirements:
@@ -86,7 +86,7 @@ outputs:
   - package:
       name: svlang
     build:
-      number: 0
+      number: 1
       noarch: generic
       script: "echo 'alias package'"
     requirements:
