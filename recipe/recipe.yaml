@@ -12,6 +12,8 @@ source:
   patches:
     # Export accessors instead of thread-local data so shared builds work with MSVC.
     - thread-pool-dll.patch
+    # Prevent MSVC from exporting copy operations for move-only waiver rules.
+    - waiver-manager-move-only.patch
 
 build:
   number: ${{ build_number }}

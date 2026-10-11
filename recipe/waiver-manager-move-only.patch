@@ -1,0 +1,13 @@
+--- a/include/slang/diagnostics/WaiverManager.h
++++ b/include/slang/diagnostics/WaiverManager.h
+@@ -130,6 +130,10 @@
+ class SLANG_EXPORT WaiverManager {
+ public:
+     WaiverManager() = default;
++    WaiverManager(const WaiverManager&) = delete;
++    WaiverManager& operator=(const WaiverManager&) = delete;
++    WaiverManager(WaiverManager&&) = default;
++    WaiverManager& operator=(WaiverManager&&) = default;
+ 
+     /// Loads waiver rules from a TOML file, appending to any already loaded.
+     ///
