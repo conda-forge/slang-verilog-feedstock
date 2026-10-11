@@ -9,6 +9,9 @@ recipe:
 source:
   url: https://github.com/MikePopoloski/slang/archive/refs/tags/v${{ version }}.tar.gz
   sha256: 64b3eb9d38ee126e009cbb8da0cfa6f68d970334e52ba084ad7c68e4b5fa804c
+  patches:
+    # Export accessors instead of thread-local data so shared builds work with MSVC.
+    - thread-pool-dll.patch
 
 build:
   number: ${{ build_number }}
