@@ -14,6 +14,8 @@ source:
     - thread-pool-dll.patch
     # Prevent MSVC from exporting copy operations for move-only waiver rules.
     - waiver-manager-move-only.patch
+    # Link system fmt without also compiling its implementation into slang.
+    - system-fmt.patch
 
 build:
   number: ${{ build_number }}
