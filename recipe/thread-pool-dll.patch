@@ -1,0 +1,82 @@
+--- a/external/BS_thread_pool.hpp
++++ b/external/BS_thread_pool.hpp
+@@ -968,7 +968,7 @@
+ /**
+  * @brief A class used to obtain information about the current thread and, if native extensions are enabled, get/set its priority, affinity, or name.
+  */
+-class SLANG_EXPORT [[nodiscard]] this_thread
++class [[nodiscard]] this_thread
+ {
+     template <tp>
+     friend class thread_pool;
+@@ -981,7 +981,7 @@
+      */
+     [[nodiscard]] static std::optional<std::size_t> get_index() noexcept
+     {
+-        return my_index;
++        return my_index();
+     }
+ 
+     /**
+@@ -991,7 +991,7 @@
+      */
+     [[nodiscard]] static std::optional<void*> get_pool() noexcept
+     {
+-        return my_pool;
++        return my_pool();
+     }
+ 
+ #ifdef BS_THREAD_POOL_NATIVE_EXTENSIONS
+@@ -1349,8 +1349,8 @@
+ #endif
+ 
+ private:
+-    static thread_local std::optional<std::size_t> my_index;
+-    static thread_local std::optional<void*> my_pool;
++    static SLANG_EXPORT std::optional<std::size_t>& my_index() noexcept;
++    static SLANG_EXPORT std::optional<void*>& my_pool() noexcept;
+ }; // class this_thread
+ 
+ /**
+@@ -2287,8 +2287,8 @@
+      */
+     void worker(BS_THREAD_POOL_WORKER_TOKEN const std::size_t idx)
+     {
+-        this_thread::my_pool = this;
+-        this_thread::my_index = idx;
++        this_thread::my_pool() = this;
++        this_thread::my_index() = idx;
+         init_func(idx);
+         while (true)
+         {
+@@ -2332,8 +2332,8 @@
+             }
+         }
+         cleanup_func(idx);
+-        this_thread::my_index = std::nullopt;
+-        this_thread::my_pool = std::nullopt;
++        this_thread::my_index() = std::nullopt;
++        this_thread::my_pool() = std::nullopt;
+     }
+ 
+     // ============
+--- a/source/util/ThreadPool.cpp
++++ b/source/util/ThreadPool.cpp
+@@ -11,8 +11,15 @@
+ 
+ namespace BS {
+ 
+-thread_local std::optional<std::size_t> this_thread::my_index = std::nullopt;
+-thread_local std::optional<void*> this_thread::my_pool = std::nullopt;
++std::optional<std::size_t>& this_thread::my_index() noexcept {
++    static thread_local std::optional<std::size_t> value = std::nullopt;
++    return value;
++}
++
++std::optional<void*>& this_thread::my_pool() noexcept {
++    static thread_local std::optional<void*> value = std::nullopt;
++    return value;
++}
+ 
+ } // namespace BS
+ 

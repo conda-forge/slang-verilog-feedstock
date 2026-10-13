@@ -1,6 +1,6 @@
 context:
-  version: "11.0"
-  build_number: 2
+  version: "12.0"
+  build_number: 0
 
 recipe:
   name: slang-verilog-packages
@@ -8,9 +8,14 @@ recipe:
 
 source:
   url: https://github.com/MikePopoloski/slang/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 50676d5a9adbefb97d266a4b174e6b0513901afd5ac57a6cdfea0a61149c3704
+  sha256: 64b3eb9d38ee126e009cbb8da0cfa6f68d970334e52ba084ad7c68e4b5fa804c
   patches:
-    - 0001-fix-build-with-fmtlib-12.2.patch
+    # Export accessors instead of thread-local data so shared builds work with MSVC.
+    - thread-pool-dll.patch
+    # Prevent MSVC from exporting copy operations for move-only waiver rules.
+    - waiver-manager-move-only.patch
+    # Link system fmt without also compiling its implementation into slang.
+    - system-fmt.patch
 
 build:
   number: ${{ build_number }}
@@ -30,17 +35,19 @@ outputs:
         - ${{ compiler('c') }}
         - ${{ compiler('cxx') }}
         - ${{ stdlib('c') }}
-        - cmake >=3.20
+        - cmake >=3.28
         - ninja
         - python
       host:
         - fmt >=12.1
+        - tomlplusplus >=3.4
         - if: not win
           then:
-            - mimalloc >=2.2
+            - mimalloc >=3.5
         - libboost-devel
       run:
         - fmt >=12.1
+        - tomlplusplus >=3.4
       ignore_run_exports:
         by_name:
           - libboost
