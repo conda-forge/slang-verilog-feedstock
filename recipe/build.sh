@@ -20,3 +20,8 @@ cmake -B build -GNinja ${CMAKE_ARGS} \
 
 cmake --build build -j${CPU_COUNT}
 cmake --install build
+
+cmake -S "${RECIPE_DIR}/shared-api-test" -B build/shared-api-test -GNinja ${CMAKE_ARGS} \
+    -DCMAKE_PREFIX_PATH="${PREFIX}"
+cmake --build build/shared-api-test
+ctest --test-dir build/shared-api-test --output-on-failure

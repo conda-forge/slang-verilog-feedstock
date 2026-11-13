@@ -1,6 +1,6 @@
 context:
   version: "12.0"
-  build_number: 0
+  build_number: 1
 
 recipe:
   name: slang-verilog-packages
@@ -16,6 +16,8 @@ source:
     - waiver-manager-move-only.patch
     # Link system fmt without also compiling its implementation into slang.
     - system-fmt.patch
+    # Export the numeric conversion helper used by the Python bindings.
+    - export-literal-base.patch
 
 build:
   number: ${{ build_number }}

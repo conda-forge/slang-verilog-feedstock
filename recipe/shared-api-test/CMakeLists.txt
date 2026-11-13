@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.28)
+project(slang_shared_api_test LANGUAGES CXX)
+find_package(slang 12.0.0 EXACT CONFIG REQUIRED)
+add_executable(shared-api-test main.cpp)
+target_link_libraries(shared-api-test PRIVATE slang::slang)
+enable_testing()
+add_test(NAME shared-api-test COMMAND shared-api-test)

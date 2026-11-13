@@ -1,0 +1,11 @@
+--- a/include/slang/numeric/SVInt.h
++++ b/include/slang/numeric/SVInt.h
+@@ -32,7 +32,7 @@
+ SLANG_ENUM_SIZED(LiteralBase, uint8_t, LB)
+ #undef LB
+ 
+-bool literalBaseFromChar(char base, LiteralBase& result);
++SLANG_EXPORT bool literalBaseFromChar(char base, LiteralBase& result);
+ 
+ /// Represents a single 4-state bit. The usual bit values of 0 and 1 are
+ /// augmented with X (unknown) and Z (high impedance). Both X and Z are
