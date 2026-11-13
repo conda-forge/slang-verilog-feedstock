@@ -16,7 +16,7 @@ source:
     - waiver-manager-move-only.patch
     # Link system fmt without also compiling its implementation into slang.
     - system-fmt.patch
-    # Export the numeric conversion helper used by the Python bindings.
+    # Export the numeric helper and include ostream for public enum stream operators.
     - export-literal-base.patch
 
 build:
