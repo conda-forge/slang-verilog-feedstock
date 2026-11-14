@@ -1,6 +1,6 @@
 context:
   version: "12.0"
-  build_number: 1
+  build_number: 3
 
 recipe:
   name: slang-verilog-packages
@@ -18,6 +18,8 @@ source:
     - system-fmt.patch
     # Export the numeric helper and include ostream for public enum stream operators.
     - export-literal-base.patch
+    # Export nested iterator methods needed by pyslang when linking the Windows DLL.
+    - export-iterators.patch
 
 build:
   number: ${{ build_number }}
