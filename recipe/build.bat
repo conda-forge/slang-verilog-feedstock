@@ -24,3 +24,11 @@ if errorlevel 1 exit 1
 
 cmake --install build
 if errorlevel 1 exit 1
+
+cmake -S "%RECIPE_DIR%/shared-api-test" -B build/shared-api-test -GNinja %CMAKE_ARGS% ^
+    -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%"
+if errorlevel 1 exit 1
+cmake --build build/shared-api-test
+if errorlevel 1 exit 1
+ctest --test-dir build/shared-api-test --output-on-failure
+if errorlevel 1 exit 1
