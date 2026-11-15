@@ -1,0 +1,35 @@
+Export out-of-line nested iterator methods for Windows shared-library consumers.
+
+diff --git a/include/slang/ast/ValuePath.h b/include/slang/ast/ValuePath.h
+--- a/include/slang/ast/ValuePath.h
++++ b/include/slang/ast/ValuePath.h
+@@ -108,7 +108,7 @@
+         const Expression& dereference() const { return *expr; }
+ 
+         /// Advances the iterator to the next component in the path.
+-        void increment();
++        SLANG_EXPORT void increment();
+ 
+         /// @returns true if the given iterator is equal to this one.
+         bool equals(const iterator& other) const { return expr == other.expr; }
+diff --git a/include/slang/ast/symbols/ClassSymbols.h b/include/slang/ast/symbols/ClassSymbols.h
+--- a/include/slang/ast/symbols/ClassSymbols.h
++++ b/include/slang/ast/symbols/ClassSymbols.h
+@@ -137,7 +137,7 @@
+         property_iterator(const Symbol* firstSymbol) : current(firstSymbol) { skipToNext(); }
+ 
+         /// Dereferences the iterator, resolving it to a symbol.
+-        const ClassPropertySymbol& dereference() const;
++        SLANG_EXPORT const ClassPropertySymbol& dereference() const;
+ 
+         /// Advances the iterator to the next symbol in the scope
+         /// that is of the desired type.
+@@ -150,7 +150,7 @@
+         bool equals(const property_iterator& other) const { return current == other.current; }
+ 
+     private:
+-        void skipToNext();
++        SLANG_EXPORT void skipToNext();
+ 
+         const Symbol* current;
+     };
