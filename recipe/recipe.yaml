@@ -1,6 +1,6 @@
 context:
-  version: "12.1"
-  build_number: 2
+  version: "12.2"
+  build_number: 0
 
 recipe:
   name: slang-verilog-packages
@@ -8,7 +8,7 @@ recipe:
 
 source:
   url: https://github.com/MikePopoloski/slang/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: e7454393956ef0f3e9bbcac27f7de473e11e1fd7be125c3009f1f2bfeddf0358
+  sha256: 29c8dee801e489e10f84ebc8a65b641bbcee18614fd183223b35e85c2461b6ab
   patches:
     # Export accessors instead of thread-local data so shared builds work with MSVC.
     - thread-pool-dll.patch
